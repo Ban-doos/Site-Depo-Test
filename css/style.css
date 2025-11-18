@@ -1,82 +1,862 @@
-* {
+/* Style général */
+body {
+    font-family: "inter", sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", sans-serif;
 }
 
-/* ---- NAVBAR ---- */
+/* Barre de navigation */
 .navbar {
     position: fixed;
     top: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    display: block;
+}
+
+.navbar a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+/* Mise en page des sections */
+section {
+    padding-top: 50px;
+    padding-right: 0px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    margin-top: 20px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    scroll-margin-top: 10vh;
+}
+
+/* Alignement du contenu */
+.content-box {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}
+
+/* Boutons */
+button, .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+button:hover, .button:hover {
+    background-color: #45a049;
+}
+
+section:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+
+section:nth-child(even) {
+    background-color: #e4e4e4;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p, ul, form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin: 10px 0 5px;
+}
+
+form input, form textarea, form button {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+form button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+/* Animation d'accueil */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transform: translateY(-100%); /* Position initiale hors de l'écran */
+    transition: transform 1s ease-in-out; /* Animation fluide */
+}
+
+/* Titre */
+#welcome-screen h1 {
+    font-size: 3rem;
+    text-align: center;
+    opacity: 0; /* Le texte commence invisible */
+    animation: fadeInText 1s ease-in-out forwards 0.5s; /* Apparition progressive */
+}
+
+/* Animation du texte */
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Disparition de l'écran après l'animation */
+body.loaded #welcome-screen {
+    transform: translateY(-100%); /* Fait glisser l'écran vers le haut */
+    pointer-events: none;
+    transition: transform 1s ease-in-out 2s; /* Déclenche la disparition après l'animation */
+}
+
+/* Section d'accueil */
+#welcome-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Vidéo en arrière-plan */
+#background-video {
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%); /* Centre la vidéo */
+    min-width: 100%;  /* Assure que la largeur est toujours suffisante */
+    min-height: 100%; /* Assure que la hauteur est suffisante */
+    width: 100%;      /* S'adapte à la largeur de l'écran */
+    height: 100%;     /* S'adapte à la hauteur de l'écran */
+    z-index: 0;      /* La vidéo reste en arrière-plan */
+    object-fit: cover; /* Maintient un zoom et ajuste l'image pour couvrir toute la surface */
+    filter: brightness(50%); /* Légère réduction de la luminosité pour la lisibilité du texte */
+}
 
-    width: 90%;
+/* Désactivation du défilement horizontal */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;  /* Empêche le défilement horizontal */
+}
+
+/* Pour assurer la réactivité de la page */
+@media screen and (max-width: 768px) {
+    #background-video {
+        object-fit: cover; /* Maintient le même comportement en cas de petite taille d'écran */
+    }
+}
+
+/* Boîte de texte avec animation */
+.welcome-text-box {
+    z-index: 1;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: #333;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    margin: 0 10%;
+}
+
+/* Animation après chargement */
+body.loaded .welcome-text-box {
+    opacity: 1; /* Rend la boîte visible */
+    transform: translateY(0); /* Glissement vers la position finale */
+}
+
+.welcome-text-box h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.welcome-text-box p {
+    font-size: 1.2rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-nav a, .footer-socials a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer-nav a:hover, .footer-socials a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour les sections */
+.section {
+    padding: 50px 20px;
+    margin: 20px auto;
     max-width: 1200px;
+    background-color: #fff; /* Fond blanc par défaut */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    opacity: 0; /* Commence invisible */
+    transition: opacity 1s ease, transform 1s ease; /* Animation */
+}
 
-    background: #ffffffcc; /* blanc translucide */
-    backdrop-filter: blur(10px);
+.section-active {
+    opacity: 1;
+    transform: translateY(0); /* Apparition progressive */
+}
 
-    padding: 15px 25px;
-    margin-top: 15px;
-
-    border-radius: 30px;
-
-    display: fixed;
+/* Contenu aligné */
+.content-box {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+}
 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+/* Colonnes pour le contenu */
+.left-column,
+.right-column {
+    flex: 1 1 45%; /* Prend 45% de l'espace disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+/* Images */
+.content-box img {
+    max-width: 100%;
+    height: 150px;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* La catastrophe */
+.content-box2 img{
+    max-width: 100%;
+    height: 100px !important;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Listes */
+.content-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.content-box ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Boutons */
+.button {
+    background-color: #1ed3ca;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #13968e;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-column,
+    .right-column {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+}
+
+.articles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.article {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article a {
+    text-decoration: none;
+    color: #333;
+}
+
+.article a:hover {
+    color: #1ed3ca;
+}
+
+.article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mindmap-container img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.details-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Frise Chronologique */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin: 40px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #1ed3ca;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.timeline-item:nth-child(odd) {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.timeline-item .timeline-content {
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 40%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-item .timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item .timeline-content img {
+    width: 110px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.timeline-item .timeline-content h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.timeline-item .timeline-content .date {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.timeline-item .timeline-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.timeline-item .timeline-content ul li {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Détails cachés */
+.timeline-item .details {
+    display: none;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Bouton */
+.timeline-item .toggle-details {
+    background-color: #1ed3ca;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.timeline-item .toggle-details:hover {
+    background-color: #13968e;
+}
+
+/* Point de la frise */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #1ed3ca;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+
+
+
+
+/* el carrousel */
+/* Section BTS SIO */
+.bts-description {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.bts-description h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.bts-description p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.skills-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.skills-list li {
+    background-color: #1ed3ca;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.skills-list li:hover {
+    transform: scale(1.1);
+}
+
+/* Carrousel des logos */
+.company-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.carousel {
+    display: flex;
+    gap: 20px;
+    animation: scroll 10s linear infinite;
+}
+
+.carousel img {
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.carousel img:hover {
+    transform: scale(1.2);
+}
+
+/* Animation de défilement en boucle */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Section Education */
+.education-section {
+    padding: 40px;
+}
+
+.education-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-decoration: underline;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Frise Chronologique */
+.education-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.education-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #1ed3ca;
+    transform: translateX(-50%);
+}
+
+.education-timeline-item {
+    position: relative;
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-timeline-item:nth-child(odd) {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.education-timeline-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.education-timeline-item h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.education-timeline-item p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Détails */
+.education-details {
+    display: initial;
+    margin-top: 15px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.education-details ul {
+    margin: 10px 0;
+    padding: 0;
+    list-style: disc inside;
+}
+
+.education-details a.education-button {
+    display: inline-block;
+    margin-top: 10px;
+    background: #1ed3ca;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.education-details a.education-button:hover {
+    background: #13968e;
+}
+
+/* Point de la frise */
+.education-timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: #1ed3ca;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-top: 2rem;
+}
+
+.projet-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.projet-card:hover {
+    transform: scale(1.05);
+}
+
+.projet-card img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(253, 253, 253, 0.7);
+    width: 100%;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.projet-card:hover .overlay {
+    transform: translateY(0);
+}
+
+.page-center {
+    display: flex;
+    justify-content: center; /* centre horizontalement */
+    align-items: center;
+    margin-top: 80px !important;   /* centre verticalement */
+}
+
+.image-container {
+    width: 120px;         /* taille du container (modifiable) */
+    height: 120px;
+    border-radius: 50%;   /* rond */
+    overflow: hidden;     /* cache ce qui dépasse */
+    border: 2px solid #333; /* optionnel : bordure */
+    display: flex;
+    margin: 0 10%;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5; /* couleur de fond au cas où l'image charge mal */
+}
+  
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* permet de remplir le cercle sans déformation */
+}
+  
+/* Bouton vers lien ou PDF */
+.btn-lien {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+  
+.btn-lien:hover {
+    background-color: #0056b3;
+}
+
+/* Liste des captures */
+.captures-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+  
+.captures-list img {
+    width: 180px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+  
+.captures-list img:hover {
+    transform: scale(1.05);
+    border-color: #444;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
     z-index: 1000;
 }
 
-.nav-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
+.popup-content {
+    width: auto;
+    height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-    list-style: none;
+.popup-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
-
-.nav-links a {
-    text-decoration: none;
-    color: #222;
-    font-size: 1rem;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: 0.25s;
-}
-
-.nav-links a:hover {
-    background: #f0f0f0;
-}
-
-/* ---- SECTIONS ---- */
-.section {
-    width: 100%;
-    align-items: center;
-    margin: 35px;
-    
-
-    background-color: #00FF00;
-
-    padding: 50px;
-
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-.section h2 {
-    margin-bottom: 15px;
-    font-size: 2rem;
-}
-
-.section p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #444;
+.popup-close:hover {
+    color: #1ed3ca;
+    transform: scale(1.1);
 }
